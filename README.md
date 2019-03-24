@@ -4,6 +4,7 @@
 - [python](#python)
 - [web](#web)
 - [leetcode](#leetcode)
+- [algorithm](#algorithm)
 
 <!-- /TOC -->
 
@@ -13,3 +14,5 @@
 [learning web notes](webNotes/README.md)
 # leetcode
 [learning web notes](leetcodeNotes/README.md)
+# algorithm
+[learning algorithm notes](algorithmNotes/README.md)
