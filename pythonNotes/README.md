@@ -2,6 +2,7 @@
 <!-- TOC -->
 
 - [python基础知识](#python基础知识)
+    - [PYTHON是一门动态解释性的强类型定义语言](#python是一门动态解释性的强类型定义语言)
     - [基本数据类型](#基本数据类型)
     - [copy](#copy)
         - [1、对于 数字 和 字符串 而言](#1对于-数字-和-字符串-而言)
@@ -13,10 +14,14 @@
     - [格式化字符串](#格式化字符串)
         - [1、百分号方式](#1百分号方式)
         - [2、Format方式](#2format方式)
+    - [is 和 ==](#is-和-)
 
 <!-- /TOC -->
 # python基础知识
-
+## PYTHON是一门动态解释性的强类型定义语言
+* 动态 : 编写时无需定义变量类型；
+* 强类型 : 运行时变量类型强制固定；
+* 解释性 : 无需编译，在解释器环境直接运行。
 
 ## 基本数据类型
 
@@ -37,7 +42,10 @@ print(id(n2))
 
 # ## 浅拷贝 ##
 n2 = copy.copy(n1)
-print(id(n2))# 
+print(id(n2))
+# 对于列表的浅拷贝，有一种简写
+a = [1,2,3]
+b = a[:]
 
 # ## 深拷贝 ##
 n3 = copy.deepcopy(n1)
@@ -232,3 +240,32 @@ tpl = "numbers: {num:b},{num:o},{num:d},{num:x},{num:X}, {num:%}".format(num=15)
 ```
 
 
+
+## is 和 ==
+```python
+a = "hello"
+b = "hello"
+print(a is b)  # 输出 True 
+print(a == b)  # 输出 True
+
+
+a = "hello world"
+b = "hello world"
+print(a is b)  # 输出 False
+print(a == b)  # 输出 True 
+
+
+a = [1, 2, 3]
+b = [1, 2, 3]
+print(a is b)  # 输出 False
+print(a == b)  # 输出 True 
+
+
+a = [1, 2, 3]
+b = a
+print(a is b)  # 输出 True 
+print(a == b)  # 输出 True
+```
+* 官方文档中说 is 表示的是对象标示符（object identity），而 == 表示的是相等（equality）。
+* is 的作用是用来检查对象的标示符是否一致，也就是比较两个对象在内存中的地址是否一样，而 == 是用来检查两个对象是否相等。我们在检查 a is b 的时候，其实相当于检查 id(a) == id(b)。而检查 a == b 的时候，实际是调用了对象 a 的 __eq()__ 方法，a == b 相当于 a.__eq__(b)。
+* Python的字符串驻留机制起了作用，当字符串中出现了非标识符允许的字符的时候才不采取驻留，如果你把"hello world"改成"hello_world"， a is b还是返回 true，只是因为字符中有一个空格所以才不采用驻留，为了提高系统性能Python会保留其值的一个副本，当创建新的字符串的时候直接指向该副本即可。所以 "hello" 在内存中只有一个副本，a 和 b 的 id 值相同，而 "hello world" 有空格，为非标识符允许的字符，不驻留内存，Python中各自创建了对象来表示 a 和 b，所以他们的值相同但 id 值不同。
